@@ -27,6 +27,9 @@
     <ClInclude Include="chapter5.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="chapter6.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +39,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Chapter5.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="chapter6.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
