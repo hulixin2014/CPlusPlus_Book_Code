@@ -5,3 +5,4 @@ void example_6_3();
 void example_6_4();
 void example_6_5();
 void example_6_6();
+void example_6_7();

@@ -136,7 +136,7 @@ int fn(int elem)
 }
 void example_6_6()
 {
-    int dim[] = { 1,2,-3,4,5,6,-7,8,9 };
+    int dim[] = { 1, 2, -3, 4, 5, 6, -7, 8, 9 };
     valarray<int> val1(10);
     valarray<int> val2(-1, 10);
     valarray<int> val3(dim, sizeof(dim) / sizeof(int));
@@ -188,4 +188,72 @@ void example_6_6()
     val5 = val3.apply(&fn);
     cout << "val3 which has been delt by fn is below: " << endl;
     print(val5);
+}
+
+void print(valarray<double>& array)
+{
+    cout.precision(3);
+    for (int i = 0; i < array.size(); ++i)
+    {
+        cout << array[i] << ", ";
+    }
+    cout << endl;
+}
+
+void example_6_7()
+{
+    double dim[] = { 1, 2, -3, 4, 5, 6, -7, 8, -9 };
+    valarray<double> v1(dim, sizeof(dim) / sizeof(double));
+    valarray<double> v2;
+    valarray<double> v3(2, 9);
+    cout << "v1: " << endl;
+    print(v1);
+    v2 = abs(v1);
+    cout << "v2=abs(v1)= :" << endl;
+    print(v2);
+    v2 = pow(v1, v3);
+    cout << "v2=pow(v1, v3)= :" << endl;
+    print(v2);
+    v2 = exp(v1);
+    cout << "v2=exp(v1)= :" << endl;
+    print(v2);
+    v2 = sqrt(v1);
+    cout << "v2=sqrt(v1)= :" << endl;
+    print(v2);
+    v2 = log(v1);
+    cout << "v2=log(v1)= :" << endl;
+    print(v2);
+    v2 = log10(v1);
+    cout << "v2=log10(v1)= :" << endl;
+    print(v2);
+    v2 = sin(v1);
+    cout << "v2=sin(v1)= :" << endl;
+    print(v2);
+    v2 = cos(v1);
+    cout << "v2=cos(v1)= :" << endl;
+    print(v2);
+    v2 = tan(v1);
+    cout << "v2=tan(v1)= :" << endl;
+    print(v2);
+    v2 = sinh(v1);
+    cout << "v2=sinh(v1)= :" << endl;
+    print(v2);
+    v2 = cosh(v1);
+    cout << "v2=cosh(v1)= :" << endl;
+    print(v2);
+    v2 = tanh(v1);
+    cout << "v2=tanh(v1)= :" << endl;
+    print(v2);
+    v2 = asin(v1);
+    cout << "v2=asin(v1)= :" << endl;
+    print(v2);
+    v2 = acos(v1);
+    cout << "v2=acos(v1)= :" << endl;
+    print(v2);
+    v2 = atan(v1);
+    cout << "v2=atan(v1)= :" << endl;
+    print(v2);
+    v2 = atan2(v1, v3);
+    cout << "v2=atan2(v1, v3)= :" << endl;
+    print(v2);
 }
