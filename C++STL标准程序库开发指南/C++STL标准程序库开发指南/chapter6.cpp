@@ -1,6 +1,6 @@
 #include "chapter6.h"
 #include "stdafx.h"
-#include <valarray>
+
 
 void example_6_1()
 {
@@ -256,4 +256,255 @@ void example_6_7()
     v2 = atan2(v1, v3);
     cout << "v2=atan2(v1, v3)= :" << endl;
     print(v2);
+}
+
+template<typename T>
+void myprint(valarray<T>& v)
+{
+    int size = v.size();
+    for (int i = 0; i < size; ++i)
+    {
+        cout << v[i] << ", ";
+    }
+    cout << endl;
+}
+
+void example_6_8()
+{
+    valarray<double> v1(12), v2;
+    for (int i = 0; i < 12; ++i)
+    {
+        v1[i] = 2 * (i + 1);
+    }
+    cout << "v1(Original):" << endl;
+    myprint(v1);
+    valarray<double> tv1 = valarray<double>(v1[slice(0, 4, 3)]);
+    valarray<double> tv2 = valarray<double>(v1[slice(2, 4, 3)]);
+    v1[slice(0, 4, 3)] = pow(tv1, tv2);
+    cout << "v1(Calculated):" << endl;
+    myprint(v1);
+    valarray<double> v3(v1[slice(0, 4, 3)]);
+    cout << "v3:" << endl;
+    myprint(v3);
+}
+
+void example_6_9()
+{
+    valarray<double> v1(12), v2;
+    for (int i = 0; i < 12; ++i)
+    {
+        v1[i] = 2 * (i + 1);
+    }
+    cout << "v1(Original):" << endl;
+    myprint(v1);
+    slice myslice(0, 4, 3);
+    v2 = v1[myslice];
+    cout << "v2(v2[slice(0,4,3)]):" << endl;
+    myprint(v2);
+}
+
+void example_6_10()
+{
+    valarray<size_t> v1(20), v2, v3, v11;
+    for (size_t i = 0; i < 20; ++i)
+    {
+        v1[i] = i;
+        cout << i << ",";
+    }
+    cout << endl;
+    valarray<size_t> len(5, 1);
+    valarray<size_t> str1(3, 1);
+    gslice g1(1, len, str1);
+    v11 = v1[g1];
+    cout << "subcollection of one dimension:" << endl;
+    int size = v11.size();
+    for (size_t j = 0; j < size; ++j)
+    {
+        v1[j] = j;
+        cout << j << ",";
+    }
+    cout << endl;
+    // 以上是以为子集
+    size_t lengthv[] = { 2, 4 };
+    size_t stridev[] = { 5, 3 };
+    valarray<size_t> length(lengthv, 2);
+    valarray<size_t> stride(stridev, 2);
+    gslice g(1, length, stride);
+    v2 = v1[g];
+    cout << "subcollection of two dimension:" << endl;
+    size = v2.size();
+    for (size_t j = 0; j < size; ++j)
+    {
+        v2[j] = j;
+        cout << j << ",";
+    }
+    cout << endl;
+    // 以上是二维子集
+    size_t lengthv2[] = { 2, 2, 3 };
+    size_t stridev2[] = { 3, 2, 3 };
+    valarray<size_t> length2(lengthv2, 3);
+    valarray<size_t> stride2(stridev2, 3);
+    gslice g2(1, length2, stride2);
+    v3 = v1[g2];
+    cout << "subcollection of three dimension:" << endl;
+    size = v3.size();
+    for (size_t j = 0; j < size; ++j)
+    {
+        v3[j] = j;
+        cout << j << ",";
+    }
+    cout << endl;
+    // 以上是三维子集
+}
+
+void example_6_11()
+{
+    double dim[12] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+    valarray<double> v1(dim, sizeof(dim) / sizeof(double));
+    valarray<double> v2, v3;
+    myprint(v1);
+    bool B[] = { 0,1,0,1,0,0,1,1,1 };
+    valarray<bool> mask_array(B, 9);
+    v2 = v1[mask_array];
+    myprint(v2);
+    v1[v1 > 8.0] = 33.0;
+    myprint(v1);
+    v1[v1 < 8.0] = valarray<double>(v1[v1 < 8.0]) + 50.5;
+    myprint(v1);
+    bool B2[12];
+    for (int i = 0; i < 12; ++i)
+    {
+        B2[i] = (bool)fmod(v1[i], 2);
+    }
+    for (int i = 0; i < 12; ++i)
+    {
+        cout << B2[i] << ",";
+    }
+    cout << endl;
+    valarray<bool> VB2(B2, 12);
+    v1[!VB2] = 0;
+    myprint(v1);
+}
+
+void example_6_12()
+{
+    double dim[] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+    valarray<double> v1(dim, 12), v2, v3;
+    myprint(v1);
+    valarray<size_t> vi(4);
+    vi[0] = 4;
+    vi[1] = 6;
+    vi[2] = 7;
+    vi[3] = 1;
+    v2 = v1[vi];
+    cout << "valarray v2(indirect_array):" << endl;
+    myprint(v2);
+    v3 = pow(v1, v2);
+    cout << "v3 = pow(v1, v2):" << endl;
+    myprint(v3);
+}
+
+int myop(int orig, int ele)
+{
+    return ele * 2 + orig;
+}
+
+void example_6_13()
+{
+    vector<int> vt;
+    int dim[] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+    vt.assign(dim, dim + 12);
+    for (int i = 0; i < vt.size(); ++i)
+    {
+        cout << vt[i] << ",";
+    }
+    cout << endl;
+    int sum = accumulate(vt.begin(), vt.end(), 0);
+    cout << sum << endl;
+    sum = accumulate(vt.begin(), vt.end(), 0, myop);
+    cout << sum << endl;
+}
+
+void print14(int elem)
+{
+    cout << elem << ",";
+}
+
+int op1(int initV, int elem2)
+{
+    return initV + elem2;
+}
+
+int op2(int elem1, int elem2)
+{
+    return elem1 * 2 + elem2 * 3;
+}
+
+void example_6_14()
+{
+    int dim[] = { 1,2,3,4 };
+    int dim2[] = { 3,4,5,6 };
+    list<int> l1, l2;
+    copy(dim, dim + 4, back_inserter(l1));
+    for_each(l1.begin(), l1.end(), print14);
+    cout << endl;
+    copy(dim2, dim2 + 4, back_inserter(l2));
+    for_each(l2.begin(), l2.end(), print14);
+    cout << endl;
+    int prod = inner_product(l1.begin(), l1.end(), l2.begin(), 0);
+    cout << prod << endl;
+    prod = inner_product(l1.begin(), l1.end(), l2.begin(), 0, op1, op2);
+    cout << prod << endl;
+    int sum = 0;
+    for (int i = 0; i < 4; ++i)
+    {
+        sum += (dim[i] * 2 + dim2[i] * 3);
+    }
+    cout << sum << endl;
+}
+
+int op15(int pre_elem, int elem)
+{
+    return pre_elem + elem * 2;
+}
+
+void example_6_15()
+{
+    vector<int> v1, v2, v3;
+    int dim[] = { 1,2,3,4 };
+    v1.assign(dim, dim + 4);
+    cout << "vector v1:" << endl;
+    for_each(v1.begin(), v1.end(), print14);
+    cout << endl;
+    partial_sum(v1.begin(), v1.end(), back_inserter(v2));
+    cout << "vector v2:" << endl;
+    for_each(v2.begin(), v2.end(), print14);
+    cout << endl;
+    partial_sum(v1.begin(), v1.end(), back_inserter(v3), op15);
+    cout << "vector v3:" << endl;
+    for_each(v3.begin(), v3.end(), print14);
+    cout << endl;
+}
+
+int op16(int elem2, int elem1)
+{
+    return elem2 * 5 - elem1 * 3;
+}
+
+void example_6_16()
+{
+    vector<int> v1, v2, v3;
+    int dim[] = { 1,2,3,4 };
+    v1.assign(dim, dim + 4);
+    cout << "vector v1:" << endl;
+    for_each(v1.begin(), v1.end(), print14);
+    cout << endl;
+    adjacent_difference(v1.begin(), v1.end(), back_inserter(v2));
+    cout << "vector v2:" << endl;
+    for_each(v2.begin(), v2.end(), print14);
+    cout << endl;
+    adjacent_difference(v1.begin(), v1.end(), back_inserter(v3), op16);
+    cout << "vector v3:" << endl;
+    for_each(v3.begin(), v3.end(), print14);
+    cout << endl;
 }

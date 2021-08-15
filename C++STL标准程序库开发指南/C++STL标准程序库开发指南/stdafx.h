@@ -15,6 +15,10 @@
 #include <deque>
 #include <iterator>
 #include <ccomplex>
+#include <valarray>
+#include <numeric>
+#include <functional>
+#include <exception>
 using namespace std;
 
 // TODO:  在此处引用程序需要的其他头文件

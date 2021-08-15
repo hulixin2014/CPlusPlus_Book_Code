@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="chapter5.h" />
     <ClInclude Include="chapter6.h" />
+    <ClInclude Include="chapter7.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClCompile Include="C++STL标准程序库开发指南.cpp" />
     <ClCompile Include="Chapter5.cpp" />
     <ClCompile Include="chapter6.cpp" />
+    <ClCompile Include="chapter7.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
